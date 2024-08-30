@@ -1,0 +1,45 @@
+{
+  "name": "vite-plugin-tar",
+  "version": "0.8.25",
+  "description": "Tar the result files after building",
+  "keywords": [
+    "vite-plugin",
+    "rollup-plugin",
+    "tar"
+  ],
+  "bugs": {
+    "url": "https://github.com/WindWilliam/vite-plugin-tar/issues"
+  },
+  "license": "MIT",
+  "author": "wind william",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WindWilliam/vite-plugin-tar.git"
+  },
+  "scripts": {
+    "build": "vite build && tsc --build --force"
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/index.umd.js",
+      "import": "./dist/index.es.js"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}
