@@ -1,4 +1,4 @@
-# vite-plugin-tar
+# wind-plugin-tar
 Tar the result files after building.   
 编译完成后自动进行tar打包压缩，最终得到xxx.tar.gz文件。
 
@@ -9,13 +9,13 @@ Tar the result files after building.
 
 ```bash
 # pnpm
-pnpm add vite-plugin-tar -D
+pnpm add wind-plugin-tar -D
 
 # yarn
-yarn add vite-plugin-tar -D
+yarn add wind-plugin-tar -D
 
 # npm
-npm install vite-plugin-tar -D
+npm install wind-plugin-tar -D
 ```
 
 ## Options 配置
@@ -31,7 +31,7 @@ npm install vite-plugin-tar -D
 ``` ts
 // vite-config
 import { defineConfig } from 'vite'
-import { tarInVite } from "vite-plugin-tar"; // import tar from "vite-plugin-tar";
+import { tarInVite } from "wind-plugin-tar"; // import tar from "wind-plugin-tar";
 
 export default defineConfig({
   plugins: [

@@ -181,7 +181,7 @@ export const tarInVite = (options?: PluginOptions): Plugin => {
 function tarInWebpack(options?: PluginOptions) {
   // TODO
   return {
-    name: 'vite-plugin-tar',
+    name: 'webpack-plugin-tar',
     apply: 'build',
   }
 }

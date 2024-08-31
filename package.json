@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-tar",
+  "name": "wind-plugin-tar",
   "version": "0.8.25",
   "description": "Tar the result files after building",
   "keywords": [
@@ -8,13 +8,13 @@
     "tar"
   ],
   "bugs": {
-    "url": "https://github.com/WindWilliam/vite-plugin-tar/issues"
+    "url": "https://github.com/WindWilliam/wind-plugin-tar/issues"
   },
   "license": "MIT",
   "author": "wind william",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WindWilliam/vite-plugin-tar.git"
+    "url": "git+https://github.com/WindWilliam/wind-plugin-tar.git"
   },
   "scripts": {
     "build": "vite build && tsc --build --force"
