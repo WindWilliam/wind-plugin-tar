@@ -97,14 +97,15 @@ const tarPipe = async (config: TarConfig) => {
   const fileName = getFileName(config.name!, config.mode)
   removePath(fileName)
   // 3. 打包压缩文件
-  process.stdout.write(setColor(`打包压缩： ${new Date().toLocaleString()}`))
   const cmd = `tar -czf ${fileName} ${dir}`
+  process.stdout.write(setColor(['打包压缩： ', setColor(cmd, 'magenta'), ' \n'], 'green'))
+  process.stdout.write(setColor(`开始时间： ${new Date().toLocaleString()}`))
   const [error] = await execCommand(cmd, { shell })
   if (error) {
     process.stdout.write(setColor(`\n打包压缩失败： ${error.message.toString()}\n`, 'red'))
     return
   } else {
-    process.stdout.write(setColor(`  --  ${new Date().toLocaleString()}\n`))
+    process.stdout.write(setColor(`  结束时间： ${new Date().toLocaleString()}\n`))
     // 4. 解压命令
     const cmdx = setColor(` tar -xzf ${fileName} -C . --strip-components=0 `, 'magenta')
     const msg = setColor(['解压命令：', cmdx, '\n'], 'green')
@@ -156,7 +157,7 @@ export const tarInVite = (options?: PluginOptions): Plugin => {
       kv.mode = config.mode
       kv.dir = config.build.outDir
       // 确定shell环境
-      kv.shell = await getShellName(config.env.VITE_TAR_SHELL)
+      kv.shell = await getShellName(options?.shell ?? config.env.VITE_TAR_SHELL)
     },
     async closeBundle() {
       process.stdout.write('\n')

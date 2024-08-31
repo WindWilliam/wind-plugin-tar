@@ -30,7 +30,10 @@
     }
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.md"
   ],
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
