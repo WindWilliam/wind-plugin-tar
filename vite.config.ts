@@ -15,6 +15,7 @@ export default defineConfig({
       name: 'wind-plugin-tar',
       fileName: (format) => `index.${format}.js`,
     },
+    minify: false,
     rollupOptions: {
       external: [/node:.*/],
       output: {
