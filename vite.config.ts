@@ -13,7 +13,8 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'wind-plugin-tar',
-      fileName: (format) => `index.${format}.js`,
+      formats: ['es', 'cjs'],
+      fileName: 'index',
     },
     minify: false,
     rollupOptions: {

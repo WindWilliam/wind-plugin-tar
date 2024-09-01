@@ -12,10 +12,15 @@ import { getShellName } from './util'
 
 /* vite插件入口 */
 const tarInVite = (options?: PluginOptions): Plugin => {
+  // 禁用状态--需要？
+  if (options?.disable) {
+    return { name: 'wind-plugin-tar', apply: 'build' }
+  }
+
   const info = { ...dftInfo }
 
   return {
-    name: 'vite-plugin-tar',
+    name: 'wind-plugin-tar',
     apply: 'build',
     async configResolved(config: ResolvedConfig) {
       info.mode = config.mode

@@ -16,7 +16,7 @@ import { setColor } from './util'
 function getPluginByBundler(bundler?: string, options?: PluginOptions) {
   switch (bundler) {
     case 'webpack':
-      return tarInWebpack
+      return tarInWebpack(options)
     case 'rollup':
       return tarInRollup(options)
     case 'vite':

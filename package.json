@@ -19,14 +19,15 @@
   "scripts": {
     "build": "vite build && tsc --build --force"
   },
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/index.cjs",
+  "type": "module",
+  "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/index.umd.js",
-      "import": "./dist/index.es.js"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -38,11 +39,12 @@
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
-  "type": "module",
   "devDependencies": {
     "@types/node": "^22.5.0",
     "prettier": "^3.3.3",
+    "rollup": "^4.21.2",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2"
+    "vite": "^5.4.2",
+    "webpack": "^5.94.0"
   }
 }
