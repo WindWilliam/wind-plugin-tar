@@ -1,6 +1,6 @@
 {
   "name": "wind-plugin-tar",
-  "version": "0.8.25",
+  "version": "0.9.1",
   "description": "Tar the result files after building",
   "keywords": [
     "vite-plugin",
