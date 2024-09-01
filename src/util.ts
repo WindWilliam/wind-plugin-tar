@@ -4,9 +4,11 @@
  * @Description: 工具函数
  */
 
-import { execSync } from 'node:child_process'
 import type { ExecSyncOptions } from 'node:child_process'
+
+import { execSync } from 'node:child_process'
 import { existsSync, readFileSync, rmSync } from 'node:fs'
+import { normalize, dirname, basename } from 'node:path'
 
 // ANSI 转义码，用于设置文本颜色
 const colors = {
@@ -56,6 +58,7 @@ export const setColor = (
   // 部分颜色
   return `${colors[clr]}${strOrArr}${colors.reset}`
 }
+
 /* 执行命令 */
 export const execCommand = async (
   command: string,
@@ -100,8 +103,22 @@ export const removePath = (path: string) => {
   return rmSync(path, { force: true, recursive: true })
 }
 
+/* 从env中获取shell配置 */
+function getShellByEnv(shell?: string) {
+  if (shell === undefined) {
+    Object.entries(process.env).some(([key, value]) => {
+      if (key.toLowerCase().endsWith('tar_shell')) {
+        shell = value
+        return true
+      }
+    })
+  }
+  return shell
+}
+
 /* 获取shell */
 export const getShellName = async (shell?: string) => {
+  shell = getShellByEnv(shell)
   const command = 'echo 233'
   if (!!shell) {
     // 测试可用性
@@ -109,8 +126,6 @@ export const getShellName = async (shell?: string) => {
     if (err === undefined) {
       return shell
     } else {
-      // 输出信息，shell无效，将使用默认配置
-      // console.warn(`shell "${shell}" is invalid, use default shell.`)
       const msg = setColor(
         ['shell配置 ', setColor(shell, 'magenta'), ' 无效，将使用默认配置！\n'],
         'yellow'
@@ -120,15 +135,13 @@ export const getShellName = async (shell?: string) => {
   }
   // win平台特殊处理
   if (process.platform === 'win32') {
-    const cmdList = ['powershell', 'pwsh']
+    const cmdList = ['pwsh', 'powershell']
     for (const item of cmdList) {
       const [err] = await execCommand(command, { shell: item, stdio: 'ignore' })
       if (err === undefined) {
         return item
       }
     }
-    // 输出信息，没有找到有效的shell，tar命令将失败
-    // console.error('no valid powershell found, command of tar will fail.')
     const msg = setColor('没有找到有效的shell，tar命令可能会失败！\n', 'red')
     process.stdout.write(msg)
   }
@@ -146,6 +159,7 @@ function getStamp() {
 
   return `${year}${month.toString().padStart(2, '0')}${day.toString().padStart(2, '0')}${hour.toString().padStart(2, '0')}`
 }
+
 /* 获取文件名称 */
 export const getFileName = (fileName: string, mode: string = '') => {
   if (fileName.includes('{')) {
@@ -168,4 +182,13 @@ export const getFileName = (fileName: string, mode: string = '') => {
   } else {
     return fileName + '.tar.gz'
   }
+}
+
+/* 生成tar命令 */
+export const genTarCommand = (folders: string, fileName: string) => {
+  const dirWhole = normalize(folders)
+  const parentDir = dirname(dirWhole)
+  const dirName = basename(dirWhole)
+
+  return `tar -czf ${fileName} -C ${parentDir} ${dirName}`
 }
