@@ -1,10 +1,12 @@
 {
   "name": "wind-plugin-tar",
-  "version": "0.9.1",
+  "version": "0.9.10",
   "description": "Tar the result files after building",
   "keywords": [
     "vite-plugin",
     "rollup-plugin",
+    "webpack-plugin",
+    "vue",
     "tar"
   ],
   "bugs": {
@@ -32,7 +34,6 @@
   },
   "files": [
     "dist/",
-    "src/",
     "LICENSE",
     "README.md"
   ],

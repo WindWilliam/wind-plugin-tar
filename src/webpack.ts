@@ -19,7 +19,7 @@ class TarPlugin {
   apply(compiler: Compiler) {
     const { options } = this
     // 禁用状态
-    if (options?.disable || process.env.NODE_ENV === 'development') {
+    if (options?.disable ?? process.env.NODE_ENV !== 'production') {
       return
     }
 

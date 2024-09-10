@@ -12,7 +12,7 @@ import { getShellName } from './util'
 
 const tarInRollup = (options?: PluginOptions): InputPluginOption => {
   // 禁用状态--需要？
-  if (options?.disable) {
+  if (options?.disable ?? process.env.NODE_ENV !== 'production') {
     return { name: 'wind-plugin-tar' }
   }
 

@@ -19,8 +19,10 @@ npm install wind-plugin-tar -D
 ```
 
 ## Options 配置
-| Parameter 参数  | Types  类型               | Default 默认值                    | Description  描述说明
+| Parameter 参数  | Types  类型               | Default 默认值      | Description  描述说明
 | ---------- | --------------------- | --------------------------- | ------------
+|disable     | Boolean               | undefined                   | disable the plugin<br/>是否禁用此插件<br/><br/>vite环境可自动识别，无须配置<br/>其他环境，若未配置此选项，则当`NODE_ENV`为**production**时启用，否则不启用。
+|bundler     | String                | vite<br/>默认为`vite`       | plugin environment<br/>插件环境<br/><br/>使用插件默认导出的**tar**方法，需要配置此参数<br/>可选值：`vite`、`rollup`、`webpack`
 |dir         | String                | get from the bundler config<br/>自动从vite中获取输出目录配置 | directory to tar<br/>打包压缩目录
 |name        | Stirng                | {name}{stamp}{project}v{version}{mode}.tar.gz | name of output file<br/>打包压缩文件名<br/><br/>**name**是从package.json中获取的名称<br/>**stamp**是时间戳，为yyyyMMddHH格式<br/>**project**是从package.json里对应字段获取的相关项目信息，没有则为空<br/>**version**是从package.json中获取的版本号<br/>**mode**是打包模式，默认从vite中获取，可通过设置mode参数覆盖
 |mode        | Stirng                | get from the bundler config(if supported)<br/>自动从编译配置中获取打包模式（如果支持设置mode的话） | build mode<br/>编译模式
@@ -52,7 +54,7 @@ npm install wind-plugin-tar -D
 
     export default defineConfig({
         plugins: [
-            tar({ bundler: "vite" }) // use default options 使用默认配置
+            tar({ bundler: "vite" }) // need to specify the bundler('vite' by default) 需要指定bundler类型(默认是vite)
         ]
     })
   ```
@@ -83,7 +85,7 @@ npm install wind-plugin-tar -D
 
     export default {
         plugins: [
-            tar({ bundler: "rollup" }) // use default options 使用默认配置
+            tar({ bundler: "rollup" }) // need to specify the bundler  需要指定bundler类型
         ]
     }
   ```
@@ -115,7 +117,7 @@ npm install wind-plugin-tar -D
 
     module.exports = {
         plugins: [
-            tar({ bundler: "webpack" }) // use default options 使用默认配置
+            tar({ bundler: "webpack" }) // need to specify the bundler  需要指定bundler类型
         ]
     }
   ```
@@ -127,7 +129,7 @@ npm install wind-plugin-tar -D
     module.exports = {
         // ...
         chainWebpack: (config) => {
-            config.plugin("wind-plugin-tar").use(tarInWebpack());
+            config.plugin("wind-plugin-tar").use(tarInWebpack()); // use default options 使用默认配置
         },
         // ...
     }
@@ -139,7 +141,7 @@ npm install wind-plugin-tar -D
     module.exports = {
         // ...
         chainWebpack: (config) => {
-            config.plugin("wind-plugin-tar").use(tar({ bundler: "webpack" }));
+            config.plugin("wind-plugin-tar").use(tar({ bundler: "webpack" })); // need to specify the bundler  需要指定bundler类型
         },
         // ...
     }
